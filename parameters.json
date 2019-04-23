@@ -6,7 +6,7 @@
             "value": "k8s"
         },
         "location": {
-            "value": "eastus2"
+            "value": "westus"
         },
         "dnsPrefix": {
             "value": "k8s-dns"
@@ -34,18 +34,6 @@
         },
         "enableHttpApplicationRouting": {
             "value": false
-        },
-        "workspaceName": {
-            "value": "DefaultWorkspace-62576bd7-def3-4533-9d2b-b9479ac76b5b-EUS"
-        },
-        "omsWorkspaceId": {
-            "value": "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourcegroups/defaultresourcegroup-eus/providers/microsoft.operationalinsights/workspaces/defaultworkspace-62576bd7-def3-4533-9d2b-b9479ac76b5b-eus"
-        },
-        "workspaceRegion": {
-            "value": "eastus"
-        },
-        "principalId": {
-            "value": "68b5434b-f22a-40cf-a247-e83e45f4581a"
         }
     }
 }
