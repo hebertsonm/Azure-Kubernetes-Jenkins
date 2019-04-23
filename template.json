@@ -5,7 +5,7 @@
         "resourceName": {
             "type": "string",
             "metadata": {
-                "description": "The name of the Managed Cluster resource."
+                "description": "The name of the Managed Cluster resource.."
             }
         },
         "location": {
