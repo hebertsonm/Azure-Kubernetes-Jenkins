@@ -6,7 +6,7 @@
             "value": "k8s"
         },
         "location": {
-            "value": "westus"
+            "value": "eastus2"
         },
         "dnsPrefix": {
             "value": "k8s-dns"
@@ -27,28 +27,13 @@
             "value": "1.12.7"
         },
         "networkPlugin": {
-            "value": "azure"
+            "value": "kubenet"
         },
         "enableRBAC": {
             "value": true
         },
         "enableHttpApplicationRouting": {
             "value": false
-        },
-        "vnetSubnetID": {
-            "value": "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourceGroups/AKS/providers/Microsoft.Network/virtualNetworks/AKS-vnet/subnets/default"
-        },
-        "serviceCidr": {
-            "value": "10.0.0.0/16"
-        },
-        "dnsServiceIP": {
-            "value": "10.0.0.10"
-        },
-        "dockerBridgeCidr": {
-            "value": "172.17.0.1/16"
-        },
-        "principalId": {
-            "value": "b0bfc5c5-9e22-493c-b8b5-651b9af324d7"
         },
         "workspaceName": {
             "value": "DefaultWorkspace-62576bd7-def3-4533-9d2b-b9479ac76b5b-EUS"
@@ -59,11 +44,8 @@
         "workspaceRegion": {
             "value": "eastus"
         },
-        "aciVnetSubnetName": {
-            "value": "virtual-node-aci"
-        },
-        "aciConnectorLinuxEnabled": {
-            "value": true
+        "principalId": {
+            "value": "68b5434b-f22a-40cf-a247-e83e45f4581a"
         }
     }
 }

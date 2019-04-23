@@ -162,52 +162,12 @@
             "metadata": {
                 "description": "The objectId of service principal."
             }
-        },
-        "vnetSubnetID": {
-            "type": "string",
-            "metadata": {
-                "description": "Resource ID of virtual network subnet used for nodes and/or pods IP assignment."
-            }
-        },
-        "serviceCidr": {
-            "type": "string",
-            "metadata": {
-                "description": "A CIDR notation IP range from which to assign service cluster IPs."
-            }
-        },
-        "dnsServiceIP": {
-            "type": "string",
-            "metadata": {
-                "description": "Containers DNS server IP address."
-            }
-        },
-        "dockerBridgeCidr": {
-            "type": "string",
-            "metadata": {
-                "description": "A CIDR notation IP for Docker bridge."
-            }
-        },
-        "aciVnetSubnetName": {
-            "type": "string",
-            "metadata": {
-                "description": "Name of virtual network subnet used for the ACI Connector."
-            }
-        },
-        "aciConnectorLinuxEnabled": {
-            "type": "bool",
-            "metadata": {
-                "description": "Enables the Linux ACI Connector."
-            }
         }
     },
     "resources": [
         {
             "apiVersion": "2019-04-01",
-            "dependsOn": [
-                "Microsoft.Network/virtualNetworks/AKS-vnet",
-                "[concat('Microsoft.Resources/deployments/', 'ClusterSubnetRoleAssignmentDeployment-20190422171632')]",
-                "[concat('Microsoft.Resources/deployments/', 'AciSubnetRoleAssignmentDeployment-20190422171632')]"
-            ],
+            "dependsOn": [],
             "type": "Microsoft.ContainerService/managedClusters",
             "location": "[parameters('location')]",
             "name": "[parameters('resourceName')]",
@@ -222,8 +182,7 @@
                         "count": "[parameters('agentCount')]",
                         "vmSize": "[parameters('agentVMSize')]",
                         "osType": "[parameters('osType')]",
-                        "storageProfile": "ManagedDisks",
-                        "vnetSubnetID": "[parameters('vnetSubnetID')]"
+                        "storageProfile": "ManagedDisks"
                     }
                 ],
                 "servicePrincipalProfile": {
@@ -231,10 +190,7 @@
                     "Secret": "[parameters('servicePrincipalClientSecret')]"
                 },
                 "networkProfile": {
-                    "networkPlugin": "[parameters('networkPlugin')]",
-                    "serviceCidr": "[parameters('serviceCidr')]",
-                    "dnsServiceIP": "[parameters('dnsServiceIP')]",
-                    "dockerBridgeCidr": "[parameters('dockerBridgeCidr')]"
+                    "networkPlugin": "[parameters('networkPlugin')]"
                 },
                 "addonProfiles": {
                     "httpApplicationRouting": {
@@ -245,12 +201,6 @@
                         "config": {
                             "logAnalyticsWorkspaceResourceID": "[parameters('omsWorkspaceId')]"
                         }
-                    },
-                    "aciConnectorLinux": {
-                        "enabled": "[parameters('aciConnectorLinuxEnabled')]",
-                        "config": {
-                            "SubnetName": "[parameters('aciVnetSubnetName')]"
-                        }
                     }
                 }
             },
@@ -258,7 +208,7 @@
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "name": "SolutionDeployment-20190422171632",
+            "name": "SolutionDeployment-20190422175642",
             "apiVersion": "2017-05-10",
             "resourceGroup": "[split(parameters('omsWorkspaceId'),'/')[4]]",
             "subscriptionId": "[split(parameters('omsWorkspaceId'),'/')[2]]",
@@ -292,9 +242,9 @@
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "name": "ClusterMonitoringMetricPulisherRoleAssignmentDepl-20190422171632",
+            "name": "ClusterMonitoringMetricPulisherRoleAssignmentDepl-20190422175642",
             "apiVersion": "2017-05-10",
-            "resourceGroup": "AKS",
+            "resourceGroup": "k8s",
             "subscriptionId": "62576bd7-def3-4533-9d2b-b9479ac76b5b",
             "properties": {
                 "mode": "Incremental",
@@ -307,121 +257,18 @@
                         {
                             "type": "Microsoft.ContainerService/managedClusters/providers/roleAssignments",
                             "apiVersion": "2018-01-01-preview",
-                            "name": "k8s/Microsoft.Authorization/18a621d7-c0af-4e47-8726-f0e263adafd0",
+                            "name": "k8s/Microsoft.Authorization/40a0bcb5-3551-4ccd-b098-60e173dcd3d8",
                             "properties": {
                                 "roleDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '3913510d-42f4-4e42-8a64-420c390055eb')]",
                                 "principalId": "[parameters('principalId')]",
-                                "scope": "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourceGroups/AKS/providers/Microsoft.ContainerService/managedClusters/k8s"
+                                "scope": "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourceGroups/k8s/providers/Microsoft.ContainerService/managedClusters/k8s"
                             }
                         }
                     ]
                 }
             },
             "dependsOn": [
-                "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourceGroups/AKS/providers/Microsoft.ContainerService/managedClusters/k8s"
-            ]
-        },
-        {
-            "apiVersion": "2018-08-01",
-            "name": "AKS-vnet",
-            "type": "Microsoft.Network/virtualNetworks",
-            "location": "westus",
-            "properties": {
-                "subnets": [
-                    {
-                        "name": "default",
-                        "id": "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourceGroups/AKS/providers/Microsoft.Network/virtualNetworks/AKS-vnet/subnets/default",
-                        "properties": {
-                            "addressPrefix": "10.240.0.0/16"
-                        }
-                    },
-                    {
-                        "name": "virtual-node-aci",
-                        "id": "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourceGroups/AKS/providers/Microsoft.Network/virtualNetworks/AKS-vnet/subnets/virtual-node-aci",
-                        "properties": {
-                            "addressPrefix": "10.241.0.0/16",
-                            "delegations": [
-                                {
-                                    "name": "aciDelegation",
-                                    "properties": {
-                                        "serviceName": "Microsoft.ContainerInstance/containerGroups",
-                                        "actions": [
-                                            "Microsoft.Network/virtualNetworks/subnets/action"
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "10.0.0.0/8"
-                    ]
-                }
-            },
-            "tags": {}
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "name": "ClusterSubnetRoleAssignmentDeployment-20190422171632",
-            "apiVersion": "2017-05-10",
-            "resourceGroup": "AKS",
-            "subscriptionId": "62576bd7-def3-4533-9d2b-b9479ac76b5b",
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {},
-                    "variables": {},
-                    "resources": [
-                        {
-                            "type": "Microsoft.Network/virtualNetworks/subnets/providers/roleAssignments",
-                            "apiVersion": "2017-05-01",
-                            "name": "AKS-vnet/default/Microsoft.Authorization/e86a1b39-0e29-4873-9990-a2df6746456d",
-                            "properties": {
-                                "roleDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '4d97b98b-1d4f-4787-a291-c67834d212e7')]",
-                                "principalId": "[parameters('principalId')]",
-                                "scope": "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourceGroups/AKS/providers/Microsoft.Network/virtualNetworks/AKS-vnet/subnets/default"
-                            }
-                        }
-                    ]
-                }
-            },
-            "dependsOn": [
-                "Microsoft.Network/virtualNetworks/AKS-vnet"
-            ]
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "name": "AciSubnetRoleAssignmentDeployment-20190422171632",
-            "apiVersion": "2017-05-10",
-            "resourceGroup": "AKS",
-            "subscriptionId": "62576bd7-def3-4533-9d2b-b9479ac76b5b",
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {},
-                    "variables": {},
-                    "resources": [
-                        {
-                            "type": "Microsoft.Network/virtualNetworks/subnets/providers/roleAssignments",
-                            "apiVersion": "2017-05-01",
-                            "name": "AKS-vnet/virtual-node-aci/Microsoft.Authorization/69a1a344-6737-44b8-a02c-b30e48a6a26b",
-                            "properties": {
-                                "roleDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '4d97b98b-1d4f-4787-a291-c67834d212e7')]",
-                                "principalId": "[parameters('principalId')]",
-                                "scope": "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourceGroups/AKS/providers/Microsoft.Network/virtualNetworks/AKS-vnet/subnets/virtual-node-aci"
-                            }
-                        }
-                    ]
-                }
-            },
-            "dependsOn": [
-                "Microsoft.Network/virtualNetworks/AKS-vnet"
+                "/subscriptions/62576bd7-def3-4533-9d2b-b9479ac76b5b/resourceGroups/k8s/providers/Microsoft.ContainerService/managedClusters/k8s"
             ]
         }
     ],
