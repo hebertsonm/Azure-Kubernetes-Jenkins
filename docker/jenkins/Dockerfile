@@ -1,4 +1,4 @@
-from jenkins/jenkins:2.60.1
+from jenkins/jenkins:2.89.4
 
 # Distributed Builds plugins
 RUN /usr/local/bin/install-plugins.sh ssh-slaves
