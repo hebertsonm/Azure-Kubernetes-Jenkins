@@ -34,6 +34,7 @@ RUN apt-get update -qq && \
     apt-get install -qqy docker-ce && \
     usermod -aG docker jenkins && \
     chown -R jenkins:jenkins $JENKINS_HOME/
+RUN usermod -aG docker jenkins
 RUN service docker start
     
 # Install maven
