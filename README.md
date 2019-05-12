@@ -1,4 +1,4 @@
-# Lab01 - Install AKS (Azure Kubernetes Service) and Jenkins via IaC
+# Lab01 - Install AKS (Azure Kubernetes Service) and Jenkins via command line
 
 This lab uses Github, Jenkins container and Azure to deploy AKS.
 
@@ -31,6 +31,15 @@ kubectl get all --all-namespaces
 
 ## Build a custom Jenkins Docker image with personalized plug-ins.
 
+```
+git clone https://github.com/hebertsonm/AKS-IaaC.git
+cd AKS-IaaC/docker/jenkins
+docker build -t hebertsonm/jenkins .
+docker login
+docker push hebertsonm/jenkins
+```
+
+## Deploy Jenkins on AKS
 ```
 
 ```
