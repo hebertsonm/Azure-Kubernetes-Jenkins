@@ -40,6 +40,12 @@ docker push hebertsonm/jenkins
 ```
 
 ## Deploy Jenkins on AKS
-```
 
 ```
+cd AKS-IaaC/kubernetes/
+kubectl apply -f jenkins-deployment.yaml --namespace jenkins
+kubectl get all --namespace jenkins
+```
+
+## Access Jenkins portal
+
