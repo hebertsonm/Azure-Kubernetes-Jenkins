@@ -20,3 +20,15 @@ spec:
               containerPort: 8080
             - name: jnlp-port
               containerPort: 50000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: jenkins
+spec:
+  selector:
+    app: jenkins
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
