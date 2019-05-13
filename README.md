@@ -43,13 +43,14 @@ docker push hebertsonm/jenkins
 
 ```
 cd AKS-IaaC/kubernetes/jenkins
+kubectl create namespace jenkins
 kubectl apply -f deployment-jenkins.yaml --namespace jenkins
 kubectl get all --namespace jenkins
 az aks show --resource-group k8s --name k8s --query addonProfiles.httpApplicationRouting.config.HTTPApplication
 RoutingZoneName -o table
 ```
 
-Update the property 'host' in the `ingress-jenkins.yaml` file, then apply the ingress configuration. This is the dns address that must be used for Jenkins access.
+Update 'host' property in `ingress-jenkins.yaml` file, then apply the ingress configuration. This is the dns address that must be used for Jenkins access.
 
 ``` 
 kubectl apply -f ingress-jenkins.yaml --namespace jenkins
