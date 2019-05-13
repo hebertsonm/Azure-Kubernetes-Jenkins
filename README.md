@@ -60,7 +60,7 @@ kubectl describe ingress jenkins --namespace jenkins
 
 Past the host address (from previous task) on browser and configure Jenkins security.
 
-Configure Global Security > Enable security.
+Manage Jenkins > Configure Global Security > Enable security.
 
 Create a new user.
 
