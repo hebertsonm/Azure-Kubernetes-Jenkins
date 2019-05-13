@@ -1,6 +1,6 @@
 # Lab01 - Install AKS (Azure Kubernetes Service) and Jenkins via command line
 
-This lab uses Github, Jenkins container and Azure to deploy AKS.
+This lab creates an AKS cluster with application routing enables via command line. By the end, a custom Jenkins container is created and deployed to AKS also via command line.
 
 ## AKS
 
