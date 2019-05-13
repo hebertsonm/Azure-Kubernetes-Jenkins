@@ -58,5 +58,7 @@ kubectl describe ingress jenkins --namespace jenkins
 
 ## Access Jenkins portal
 
-Past the host address (from previous task) on browser and configure Jenkins password.
+Past the host address (from previous task) on browser and configure Jenkins security.
+
+Configure Global Security > Enable security > Create a new user.
 
