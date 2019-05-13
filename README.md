@@ -49,12 +49,14 @@ az aks show --resource-group k8s --name k8s --query addonProfiles.httpApplicatio
 RoutingZoneName -o table
 ```
 
-Update the property 'host' in the `ingress-jenkins.yaml` file, then apply the ingress configuration.
+Update the property 'host' in the `ingress-jenkins.yaml` file, then apply the ingress configuration. This is the dns address that must be used for Jenkins access.
 
 ``` 
-kubectl apply -f ingress-jenkins.yaml
-kubectl get ingress
+kubectl apply -f ingress-jenkins.yaml --namespace jenkins
+kubectl describe ingress jenkins --namespace jenkins
 ```
 
 ## Access Jenkins portal
+
+Past the host address (from previous task) on browser and configure Jenkins password.
 
