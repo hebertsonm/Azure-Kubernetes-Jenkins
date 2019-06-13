@@ -32,8 +32,8 @@ kubectl get all --all-namespaces
 ## Build a custom Jenkins Docker image with personalized plug-ins.
 
 ```
-git clone https://github.com/hebertsonm/AKS-IaaC.git
-cd AKS-IaaC/docker/jenkins
+git clone https://github.com/hebertsonm/Azure-Kubernetes-Jenkins.git
+cd Azure-Kubernetes-Jenkins/docker/jenkins
 docker build -t hebertsonm/jenkins .
 docker login
 docker push hebertsonm/jenkins
@@ -42,7 +42,7 @@ docker push hebertsonm/jenkins
 ## Deploy Jenkins on AKS
 
 ```
-cd AKS-IaaC/kubernetes/jenkins
+cd Azure-Kubernetes-Jenkins/kubernetes/jenkins
 kubectl create namespace jenkins
 kubectl apply -f deployment-jenkins.yaml --namespace jenkins
 kubectl get all --namespace jenkins
