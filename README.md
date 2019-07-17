@@ -1,6 +1,6 @@
-# Lab01 - Install AKS (Azure Kubernetes Service) and Jenkins via command line
+# Install AKS (Azure Kubernetes Service) and Jenkins via command line
 
-This lab creates an AKS cluster with application routing enables via command line. By the end, a custom Jenkins image is created and deployed to AKS also via command line.
+This documents creates an AKS cluster with application routing enables via command line. By the end, a custom Jenkins image is created and deployed to AKS via command line. It can be used for disaster recovery purpose.
 
 ## AKS
 
