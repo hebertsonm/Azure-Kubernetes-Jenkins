@@ -1,10 +1,12 @@
 # Install AKS (Azure Kubernetes Service) and Jenkins via command line
 
-This documents creates an AKS cluster with application routing enables via command line. By the end, a custom Jenkins image is created and deployed to AKS via command line. It can be used for disaster recovery purpose.
+This document creates an AKS cluster with application routing enables via command line. By the end, a custom Jenkins image is created and deployed to AKS via command line. It can be used for disaster recovery purpose.
 
 ## AKS
 
 Instal AKS via azure-cli.
+
+https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough
 
 https://docs.microsoft.com/en-us/azure/aks/http-application-routing
 
@@ -24,7 +26,7 @@ sudo apt-get install -y kubectl
 Then, run the commands bellow to install and connect to AKS:
 ```
 az login
-az aks create --resource-group myResourceGroup --name myAKSCluster --enable-addons http_application_routing
+az aks create -g myResourceGroup --name myAKSCluster --enable-addons http_application_routing,monitoring --generate-ssh-keys --node-count 1
 az AKS get-credentials -g myResourceGroup -n myAKSCluster
 kubectl get all --all-namespaces
 ```
