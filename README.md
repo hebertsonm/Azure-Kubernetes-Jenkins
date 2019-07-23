@@ -74,3 +74,7 @@ Jenkins has a built-in SSH client implementation that it can use to talk to remo
 Click Manage Jenkins, then Manage Nodes, then click "New Node." In this set up, you'll supply the connection information (the agent host name, user name, and ssh credential). Note that the agent will need the master's public ssh key copied to ~/.ssh/authorized_keys. (This is a decent howto if you need ssh help).
 
 Jenkins will do the rest of the work by itself, including copying the binary needed for an agent, and starting/stopping agents. If your project has external dependencies (like a special ~/.m2/settings.xml, or a special version of java), you'll need to set that up yourself, though.  The Slave Setup Plugin may be of help.
+
+### Install Docker on slave node
+
+https://docs.docker.com/v17.09/engine/installation/linux/docker-ce/ubuntu/
